@@ -8,10 +8,13 @@ export default function Home() {
   const [providerData, setProviderData] = useState({});
 
   const MIMI_API = `api/${doctorNpi}`;
+  const URL = import.meta.env.DEV
+    ? "http://localhost:8080"
+    : document.location.href;
 
   const handleDoctorInfoFetch = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/${MIMI_API}`);
+      const response = await axios.get(`${URL}/${MIMI_API}`);
       setProviderData(response.data);
       setDoctorNpi("");
     } catch (error) {

@@ -8,7 +8,11 @@ import cors from "cors";
 // };
 
 // app.use(cors(corsOptions));
-var allowlist = ["http://localhost:5173", "https://npi-db.org"];
+var allowlist = [
+  "http://localhost:5173",
+  "https://npi-db.org",
+  "https://yoshitunaiga.github.io/npi-medical-search/",
+];
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
   if (allowlist.indexOf(req.header("Origin")) !== -1) {
