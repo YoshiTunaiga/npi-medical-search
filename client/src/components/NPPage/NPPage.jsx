@@ -13,6 +13,7 @@ export default function NPPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // define fetch function
     const handleDoctorInfoFetch = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/${npId}`);
@@ -22,6 +23,7 @@ export default function NPPage() {
       }
     };
 
+    // if there is an npId, call the fetch function
     if (npId) {
       handleDoctorInfoFetch();
     }

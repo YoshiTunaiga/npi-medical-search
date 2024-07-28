@@ -9,9 +9,10 @@ const __filename = fileURLToPath(import.meta.url); // get the resolved path to t
 const __dirname = path.dirname(__filename); // get the name of the directory
 
 const app = express();
+
 // logging middleware
 app.use(morgan("dev"));
-console.log(process.env.NODE_ENV);
+
 if (process.env.NODE_ENV === "production") {
   // body parsing middleware
   app.use(express.json());
@@ -22,7 +23,7 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "..", "client/public/index.html"))
   );
 
-  // // static file-serving middleware
+  // static file-serving middleware
   app.use(express.static(path.join(__dirname, "..", "client/public")));
 }
 
@@ -45,7 +46,6 @@ let corsOptionsDelegate = function (req, callback) {
 app.get("/api/:npId", cors(corsOptionsDelegate), async (req, res) => {
   try {
     const npId = req.params.npId;
-    console.log(npId);
     const url = `https://npi-db.org/api/${npId}`;
     const response = await fetch(url);
 

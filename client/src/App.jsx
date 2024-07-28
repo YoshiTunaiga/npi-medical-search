@@ -1,5 +1,5 @@
-import Home from "./components/Home/Home";
 import { useRoutes } from "react-router-dom";
+import Home from "./components/Home/Home";
 import NPPage from "./components/NPPage/NPPage";
 
 function App() {
