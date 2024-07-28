@@ -35,7 +35,7 @@ const ProviderBox = ({ providerData }) => {
 
   return (
     <Box id="image" sx={ProviderBoxStyles}>
-      {!npi ? (
+      {npi ? (
         <div
           style={{
             display: "flex",
