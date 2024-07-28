@@ -1,12 +1,13 @@
 import express from "express";
 import cors from "cors";
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 
 var allowlist = [
   "http://localhost:5173",
   "https://npi-db.org",
-  "https://yoshitunaiga.github.io/npi-medical-search/",
+  "https://yoshitunaiga.github.io/npi-medical-search",
 ];
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
@@ -18,16 +19,18 @@ var corsOptionsDelegate = function (req, callback) {
   callback(null, corsOptions); // callback expects two parameters: error and options
 };
 
-app.get("/api/:id", cors(corsOptionsDelegate), async (req, res) => {
+app.get("/api/:npId", cors(corsOptionsDelegate), async (req, res) => {
   try {
-    const id = req.params.id;
-    const url = `https://npi-db.org/api/${id}`;
+    const npId = req.params.npId;
+    const url = `https://npi-db.org/api/${npId}`;
     const response = await fetch(url);
+
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
+
     const data = await response.json();
-    console.log(data.npi);
+
     res.json(data);
   } catch (error) {
     console.error("Fetch error:", error);
@@ -35,6 +38,6 @@ app.get("/api/:id", cors(corsOptionsDelegate), async (req, res) => {
   }
 });
 
-app.listen(8080, () => {
-  console.log("Server started on port 8080");
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });

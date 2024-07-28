@@ -1,4 +1,7 @@
 import Home from "./components/Home/Home";
+import { useRoutes } from "react-router-dom";
+import NPPage from "./components/NPPage/NPPage";
+
 // import axios from "axios";
 
 function App() {
@@ -12,12 +15,12 @@ function App() {
   // useEffect(() => {
   //   fetchAPI();
   // }, []);
+  const routes = useRoutes([
+    { path: "/", element: <Home /> },
+    { path: "/api/:npId", element: <NPPage /> },
+  ]);
 
-  return (
-    <div>
-      <Home />
-    </div>
-  );
+  return routes;
 }
 
 export default App;

@@ -1,11 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { Button, Stack, TextField, Typography } from "@mui/material";
+import ProviderBox from "./ProviderBox";
 
-export default function Home() {
+export default function NPPage() {
+  const [providerData, setProviderData] = useState({});
   const [doctorNpi, setDoctorNpi] = useState("");
+  let { npId } = useParams();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleDoctorInfoFetch = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/${npId}`);
+        setProviderData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (npId) {
+      handleDoctorInfoFetch();
+    }
+
+    return () => {
+      setProviderData({});
+    };
+  }, [npId]);
 
   return (
     <div
@@ -13,7 +37,7 @@ export default function Home() {
         display: "flex",
         minHeight: "100vh",
         padding: 0,
-        margin: 100,
+        margin: 0,
         background: `linear-gradient(rgba(255, 255,255, 100%), rgba(9, 89, 170, 10%))`,
       }}>
       <div
@@ -93,6 +117,7 @@ export default function Home() {
             </Button>
           </Stack>
         </Stack>
+        <ProviderBox providerData={providerData} />
         <p>Powered by mimilabs.ai</p>
       </div>
     </div>
