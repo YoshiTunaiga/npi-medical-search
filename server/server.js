@@ -1,13 +1,8 @@
 import express from "express";
-const app = express();
-// import fetch from "node-fetch";
 import cors from "cors";
 
-// const corsOptions = {
-//   origin: ["http://localhost:5173"],
-// };
+const app = express();
 
-// app.use(cors(corsOptions));
 var allowlist = [
   "http://localhost:5173",
   "https://npi-db.org",
@@ -23,22 +18,10 @@ var corsOptionsDelegate = function (req, callback) {
   callback(null, corsOptions); // callback expects two parameters: error and options
 };
 
-// app.get("/api/:id", cors(corsOptionsDelegate), (req, res, next) => {
-//   console.log(res);
-//   res.json({ fruits: ["apple", "strawberry", "pineapple"] });
-// });
-
-// app.get("/api/:id", cors(corsOptionsDelegate), function (req, res, next) {
-//   request({
-//     uri: `https://npi-db.org/api${req.params.id}`,
-//   });
-// });
-
 app.get("/api/:id", cors(corsOptionsDelegate), async (req, res) => {
-  const id = req.params.id;
-  const url = `https://npi-db.org/api/${id}`;
-  // console.log(id);
   try {
+    const id = req.params.id;
+    const url = `https://npi-db.org/api/${id}`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error("Network response was not ok");

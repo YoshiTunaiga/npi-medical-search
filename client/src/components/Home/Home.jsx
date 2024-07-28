@@ -4,14 +4,21 @@ import { Button, Stack, TextField, Typography } from "@mui/material";
 import ProviderBox from "./ProviderBox";
 
 export default function Home() {
-  const [doctorNpi, setDoctorNpi] = useState("");
+  const [doctorNpi, setDoctorNpi] = useState("1851926703");
   const [providerData, setProviderData] = useState({});
 
-  const MIMI_API = `${document.location.href}api/${doctorNpi}`;
+  // const MIMI_API = import.meta.env.DEV
+  //   ? `http://localhost:8080/api/${doctorNpi}`
+  //   : `${document.location.href}api/${doctorNpi}`;
 
   const handleDoctorInfoFetch = async () => {
     try {
-      const response = await axios.get(MIMI_API);
+      // console.log(MIMI_API);
+      // const response = await axios.get(MIMI_API, { params: { id: doctorNpi } });
+      const response = await axios.get(
+        `http://localhost:8080/api/${doctorNpi}`
+      );
+      console.log(response.data);
       setProviderData(response.data);
       setDoctorNpi("");
     } catch (error) {
