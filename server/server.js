@@ -9,20 +9,22 @@ const __filename = fileURLToPath(import.meta.url); // get the resolved path to t
 const __dirname = path.dirname(__filename); // get the name of the directory
 
 const app = express();
-
 // logging middleware
 app.use(morgan("dev"));
+console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === "production") {
+  // body parsing middleware
+  app.use(express.json());
 
-// body parsing middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+  app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) =>
-  res.sendFile(path.join(__dirname, "..", "client/public/index.html"))
-);
+  app.get("/", (req, res) =>
+    res.sendFile(path.join(__dirname, "..", "client/public/index.html"))
+  );
 
-// // static file-serving middleware
-app.use(express.static(path.join(__dirname, "..", "client/public")));
+  // // static file-serving middleware
+  app.use(express.static(path.join(__dirname, "..", "client/public")));
+}
 
 let allowlist = [
   "http://localhost:5173",
