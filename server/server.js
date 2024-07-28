@@ -3,9 +3,11 @@ import cors from "cors";
 const PORT = process.env.PORT || 8080;
 
 const app = express();
+app.use(express.json());
 
 var allowlist = [
   "http://localhost:5173",
+  "http://localhost:8080",
   "https://npi-db.org",
   "https://yoshitunaiga.github.io/npi-medical-search",
 ];
