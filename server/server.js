@@ -1,17 +1,37 @@
 import express from "express";
 import cors from "cors";
+import morgan from "morgan";
+import path from "path";
+import { fileURLToPath } from "url";
 const PORT = process.env.PORT || 8080;
+
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename); // get the name of the directory
 
 const app = express();
 
-var allowlist = [
+// logging middleware
+app.use(morgan("dev"));
+
+// body parsing middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.get("/", (req, res) =>
+  res.sendFile(path.join(__dirname, "..", "client/public/index.html"))
+);
+
+// // static file-serving middleware
+app.use(express.static(path.join(__dirname, "..", "client/public")));
+
+let allowlist = [
   "http://localhost:5173",
   "http://localhost:8080",
   "https://npi-db.org",
-  "https://yoshitunaiga.github.io/npi-medical-search",
+  "https://yoshitunaiga.github.io",
 ];
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
+let corsOptionsDelegate = function (req, callback) {
+  let corsOptions;
   if (allowlist.indexOf(req.header("Origin")) !== -1) {
     corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
   } else {
@@ -23,6 +43,7 @@ var corsOptionsDelegate = function (req, callback) {
 app.get("/api/:npId", cors(corsOptionsDelegate), async (req, res) => {
   try {
     const npId = req.params.npId;
+    console.log(npId);
     const url = `https://npi-db.org/api/${npId}`;
     const response = await fetch(url);
 
@@ -39,6 +60,20 @@ app.get("/api/:npId", cors(corsOptionsDelegate), async (req, res) => {
   }
 });
 
+// sends index.html
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "client/public/index.html"));
+});
+
+// error handling endware
+app.use((err, req, res, next) => {
+  console.error(err);
+  console.error(err.stack);
+  res.status(err.status || 500).send(err.message || "Internal server error.");
+});
+
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
+
+// module.exports = app;
