@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import ProviderBox from "./ProviderBox";
 
@@ -15,35 +15,41 @@ export default function NPPage() {
   useEffect(() => {
     // define fetch function
     const handleDoctorInfoFetch = async () => {
-      try {
-        const fetchPromise = fetch(`/api/${npId}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
+      axios
+        .get(`/api/${npId}`)
+        .then((response) => setProviderData(response.data))
+        .catch((error) => {
+          console.error(error);
         });
+      // try {
+      //   const fetchPromise = fetch(`/api/${npId}`, {
+      //     method: "GET",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   });
 
-        fetchPromise
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => setProviderData(data));
+      //   fetchPromise
+      //     .then((response) => {
+      //       return response.json();
+      //     })
+      //     .then((data) => setProviderData(data));
 
-        // const response = await fetch(`/api/${npId}`, {
-        //   method: "GET",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        // });
-        // if (!response.ok) {
-        //   throw new Error("Network response was not ok");
-        // }
+      //   // const response = await fetch(`/api/${npId}`, {
+      //   //   method: "GET",
+      //   //   headers: {
+      //   //     "Content-Type": "application/json",
+      //   //   },
+      //   // });
+      //   // if (!response.ok) {
+      //   //   throw new Error("Network response was not ok");
+      //   // }
 
-        // const data = await response.json();
-        // setProviderData(data);
-      } catch (error) {
-        console.error(error);
-      }
+      //   // const data = await response.json();
+      //   // setProviderData(data);
+      // } catch (error) {
+      //   console.error(error);
+      // }
     };
 
     // if there is an npId, call the fetch function
