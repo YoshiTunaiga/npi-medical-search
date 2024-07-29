@@ -4,7 +4,7 @@ A single-page vite+react app using mimilabs NPI explorer API.
 
 Note: Provider's image not available.
 
-<img src="src/assets/portal-screen.png" />
+<img src="https://github.com/YoshiTunaiga/npi-medical-board/blob/main/src/assets/portal-screen.png?raw=true" />
 
 # TECH STACK
 
