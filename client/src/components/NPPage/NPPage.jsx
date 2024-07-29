@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import ProviderBox from "./ProviderBox";
 
@@ -16,8 +16,18 @@ export default function NPPage() {
     // define fetch function
     const handleDoctorInfoFetch = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/${npId}`);
-        setProviderData(response.data);
+        const response = await fetch(`/api/${npId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        setProviderData(data);
       } catch (error) {
         console.error(error);
       }
