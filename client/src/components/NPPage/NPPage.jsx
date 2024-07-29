@@ -8,7 +8,7 @@ import ProviderBox from "./ProviderBox";
 export default function NPPage() {
   const [providerData, setProviderData] = useState({});
   const [doctorNpi, setDoctorNpi] = useState("");
-  let { npId } = useParams();
+  const { npId } = useParams();
 
   const navigate = useNavigate();
 
