@@ -16,18 +16,31 @@ export default function NPPage() {
     // define fetch function
     const handleDoctorInfoFetch = async () => {
       try {
-        const response = await fetch(`/api/${npId}`, {
+        const fetchPromise = fetch(`/api/${npId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
         });
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
 
-        const data = await response.json();
-        setProviderData(data);
+        fetchPromise
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => setProviderData(data));
+
+        // const response = await fetch(`/api/${npId}`, {
+        //   method: "GET",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        // });
+        // if (!response.ok) {
+        //   throw new Error("Network response was not ok");
+        // }
+
+        // const data = await response.json();
+        // setProviderData(data);
       } catch (error) {
         console.error(error);
       }
