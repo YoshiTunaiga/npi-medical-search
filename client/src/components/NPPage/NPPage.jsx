@@ -16,7 +16,7 @@ export default function NPPage() {
     // define fetch function
     const handleDoctorInfoFetch = async () => {
       try {
-        const response = await fetch(`/api/${npId}`, {
+        const response = await fetch(`https://npi-db.org/api/${npId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -124,6 +124,7 @@ export default function NPPage() {
             <Button
               variant="contained"
               color="primary"
+              disabled={!doctorNpi}
               onClick={() => navigate(`/api/${doctorNpi}`)}>
               Search now
             </Button>
