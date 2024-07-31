@@ -88,7 +88,7 @@ export default function Home() {
               variant="contained"
               color="primary"
               disabled={!doctorNpi}
-              onClick={() => navigate(`/api/${doctorNpi}`)}>
+              onClick={() => navigate(`/npi-medical-search/api/${doctorNpi}`)}>
               Search now
             </Button>
           </Stack>

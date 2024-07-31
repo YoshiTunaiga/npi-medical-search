@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +18,9 @@ export default function NPPage() {
     const handleDoctorInfoFetch = async () => {
       try {
         const providerInfo = await fetchDoctorInfo(npId);
+        console.log("====================================");
+        console.log(providerInfo);
+        console.log("====================================");
         setProviderData(providerInfo);
         setDoctorNpi("");
       } catch (error) {
