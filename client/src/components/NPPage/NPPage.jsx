@@ -17,6 +17,7 @@ export default function NPPage() {
     const handleDoctorInfoFetch = async () => {
       try {
         const providerInfo = await fetchDoctorInfo(id);
+        console.log(providerInfo);
         setProviderData(providerInfo);
         setDoctorNpi("");
       } catch (error) {
