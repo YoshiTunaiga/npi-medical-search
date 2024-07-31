@@ -5,7 +5,7 @@ import NPPage from "./components/NPPage/NPPage";
 function App() {
   const routes = useRoutes([
     { path: "/npi-medical-search", element: <Home /> },
-    { path: "/api/:npId", element: <NPPage /> },
+    { path: "/api/:id", element: <NPPage /> },
   ]);
 
   return routes;

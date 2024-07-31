@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 
 export default function Home() {
-  const [doctorNpi, setDoctorNpi] = useState("");
+  const [id, setId] = useState("");
   const navigate = useNavigate();
 
   return (
@@ -77,18 +77,18 @@ export default function Home() {
               hiddenLabel
               size="small"
               variant="outlined"
-              value={doctorNpi || ""}
+              value={id || ""}
               placeholder="Your provider's NPI"
               inputProps={{
                 autoComplete: "off",
               }}
-              onChange={(event) => setDoctorNpi(event.target.value)}
+              onChange={(event) => setId(event.target.value)}
             />
             <Button
               variant="contained"
               color="primary"
-              disabled={!doctorNpi}
-              onClick={() => navigate(`/api/${doctorNpi}`)}>
+              disabled={!id}
+              onClick={() => navigate(`/api/${id}`)}>
               Search now
             </Button>
           </Stack>

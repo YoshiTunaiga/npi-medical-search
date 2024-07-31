@@ -8,7 +8,7 @@ import fetchDoctorInfo from "../../api/api";
 export default function NPPage() {
   const [providerData, setProviderData] = useState({});
   const [doctorNpi, setDoctorNpi] = useState("");
-  const { npId } = useParams();
+  const { id } = useParams();
 
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ export default function NPPage() {
     // define fetch function
     const handleDoctorInfoFetch = async () => {
       try {
-        const providerInfo = await fetchDoctorInfo(npId);
+        const providerInfo = await fetchDoctorInfo(id);
         setProviderData(providerInfo);
         setDoctorNpi("");
       } catch (error) {
@@ -25,14 +25,14 @@ export default function NPPage() {
     };
 
     // if there is an npId, call the fetch function
-    if (npId) {
+    if (id) {
       handleDoctorInfoFetch();
     }
 
     return () => {
       setProviderData({});
     };
-  }, [npId]);
+  }, [id]);
 
   return (
     <div
