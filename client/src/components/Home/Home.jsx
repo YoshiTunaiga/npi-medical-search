@@ -6,6 +6,8 @@ export default function Home() {
   const [doctorNpi, setDoctorNpi] = useState("");
   const navigate = useNavigate();
 
+  // eslint-disable-next-line no-console
+  console.log(import.meta.env.VITE_API_BASE_URL);
   return (
     <div
       style={{
@@ -88,7 +90,7 @@ export default function Home() {
               variant="contained"
               color="primary"
               disabled={!doctorNpi}
-              onClick={() => navigate(`/npi-medical-search/api/${doctorNpi}`)}>
+              onClick={() => navigate(`/api/${doctorNpi}`)}>
               Search now
             </Button>
           </Stack>
