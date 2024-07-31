@@ -4,16 +4,20 @@ import axios from "axios";
 
 export default async function fetchDoctorInfo(npId) {
   try {
-    const instance = axios.create();
+    /*
+     */
+    // const instance = axios.create({ baseURL: "https://npi-db.org" });
     const config = {
+      mode: "no-cors",
       headers: {
         "Cache-Control": "no-cache",
         "Content-Type": "application/json",
-        Accept: "application/json, text/plain, */*",
         "Access-Control-Allow-Origin": "*",
       },
+      withCredentials: true,
+      credentials: "same-origin",
     };
-    const response = await instance.get(`/api/${npId}`, config);
+    const response = await axios.get(`/api/${npId}`, config);
     return response.data;
   } catch (error) {
     console.error("Error fetching doctor info:", error);

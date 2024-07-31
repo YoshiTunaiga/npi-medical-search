@@ -5,6 +5,15 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   base: "/npi-medical-search",
   plugins: [react()],
+  build: {
+    proxy: {
+      "/api": {
+        target: "https://npi-db.org",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
   server: {
     proxy: {
       "/api": {
