@@ -43,9 +43,10 @@ let corsOptionsDelegate = function (req, callback) {
   callback(null, corsOptions); // callback expects two parameters: error and options
 };
 
-app.get("/api/:npId", cors(corsOptionsDelegate), async (req, res) => {
+app.get("/api/:id", cors(corsOptionsDelegate), async (req, res) => {
   try {
-    const npId = req.params.npId;
+    const npId = req.params.id;
+    console.log(npId);
     const url = `https://npi-db.org/api/${npId}`;
     const response = await fetch(url);
 

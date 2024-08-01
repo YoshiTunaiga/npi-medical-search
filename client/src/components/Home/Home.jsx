@@ -6,6 +6,8 @@ export default function Home() {
   const [id, setId] = useState("");
   const navigate = useNavigate();
 
+  const handleSearchProvider = () => navigate(`/api/${id}`);
+
   return (
     <div
       style={{
@@ -88,7 +90,7 @@ export default function Home() {
               variant="contained"
               color="primary"
               disabled={!id}
-              onClick={() => navigate(`/api/${id}`)}>
+              onClick={handleSearchProvider}>
               Search now
             </Button>
           </Stack>

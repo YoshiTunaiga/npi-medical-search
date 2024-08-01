@@ -17,7 +17,6 @@ export default function NPPage() {
     const handleDoctorInfoFetch = async () => {
       try {
         const providerInfo = await fetchDoctorInfo(id);
-        console.log(providerInfo);
         setProviderData(providerInfo);
         setDoctorNpi("");
       } catch (error) {
@@ -34,6 +33,8 @@ export default function NPPage() {
       setProviderData({});
     };
   }, [id]);
+
+  const handleSearchProvider = () => navigate(`/api/${doctorNpi}`);
 
   return (
     <div
@@ -117,7 +118,7 @@ export default function NPPage() {
               variant="contained"
               color="primary"
               disabled={!doctorNpi}
-              onClick={() => navigate(`/api/${doctorNpi}`)}>
+              onClick={handleSearchProvider}>
               Search now
             </Button>
           </Stack>
